@@ -1,45 +1,29 @@
 exports.execute = (client, message, args) => {
+    let quote = '"';
+
     // remove command word
     var text = message.content.substring(message.content.indexOf(" "));
-    var guildName = "xxx";
 
-    /* check if guildname contains -> "
-    * have to parse the message in another way (gg)
-    * ex: !message "guild name swag delta fox 2" general-channel hello
-    */
-    if(text.indexOf('"') > -1){
-        // get guild name
+    // change args parse if server name contains spaces
+    if(text.indexOf(quote) > -1){
+        args = [];
         var end = text.substring(2).indexOf('"');
-        guildName = text.substring(2, end+2);
-        // get guild
-        var guild = client.guilds.find("name", guildName);
-        if(guild == null){
-            message.channel.send("Invalid guild");
-            return;
-        }
+        args[0] = "";
+        args[1] = text.substring(2, end+2); // guildname
 
-        // insert words into array
         var rest = text.substring(end+2+2).split(" ");
-        var msgToSend = "";
-        for(var i = 1; i < rest.length; i++){
-            msgToSend += rest[i] + " ";
-        }
+        args[2] = rest[0];
 
-        // get channel
-        var channel = guild.channels.find("name", rest[0]);
-        if(channel == null){
-            // try to get channel by id
-            channel = guild.channels.get(rest[0]);
-            if(channel == null){
-                message.channel.send("Invalid channel");
-                return;
-            }
+        for(var i = 1; i < rest.length; i++){
+            args[2+i] = rest[i];
         }
-        channel.send(msgToSend);
-        return;
     }
 
-    // try to get guild by name (one word name)
+    // args[1] = guild name
+    // args[2] = channel name
+    // args[3+] = message
+
+    // try to get guild by name
     var guild = client.guilds.find("name", args[1]);
     if(guild == null){
         // try to get guild by id
@@ -50,7 +34,7 @@ exports.execute = (client, message, args) => {
         }
     }
 
-    // try to get channel by name (channels cant have spaces)
+    // try to get channel by name
     var channel = guild.channels.find("name", args[2]);
     if(channel == null){
         // try to get channel by id
@@ -67,11 +51,13 @@ exports.execute = (client, message, args) => {
         return;
     }
 
+    // put together message from args
     var msgToSend = "";
     for(var i = 3; i < args.length; i++){
         msgToSend += args[i] + " ";
     }
 
+    // send it
     channel.send(msgToSend)
         .catch(console.error);
 };
