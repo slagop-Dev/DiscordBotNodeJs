@@ -13,7 +13,7 @@ exports.execute = (client, message, args) => {
     for(var i = 1; i < args.length; i++){
         gameName += args[i] + " ";
     }
-    client.user.setGame(gameName)
+    client.user.setActivity(gameName)
         .then(user => console.log("Game set: " + gameName))
         .catch(console.error);
 };

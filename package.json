@@ -9,6 +9,7 @@
   "author": "Viktor Svensson",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^11.2.1"
+    "discord.js": "^11.3.0",
+    "node-opus": "^0.2.7"
   }
 }
