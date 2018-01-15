@@ -7,6 +7,9 @@ const conf = require('./config.js');
 // bot client
 const client = new Discord.Client();
 
+// x
+var guilds = {};
+
 // get config values from a secret file
 client.config = conf.config;
 
