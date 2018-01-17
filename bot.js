@@ -7,7 +7,7 @@ const conf = require('./config.js');
 // bot client
 const client = new Discord.Client();
 
-// x
+// all servers with their play queues and audio providers
 var guilds = {};
 
 // get config values from a secret file
@@ -21,6 +21,31 @@ fs.readdir("./commands/", function(err, files){
         client.commands.push(cmd);
     });
 });
+
+///////////////////////////////////////////////////////////////////////////////
+
+exports.playSong = (connection, guildId) => {
+    // create guild object if it doesnt exist
+    if(!guilds[guildId]) guilds[guildId] = {
+        playQueue: []
+    };
+
+    var g = guilds[guildId];
+
+    g.dispatcher = connection.playFile(
+        './audio/Start to Finish - Slizzy McGuire (fortnite).mp3'
+    );
+
+    g.dispatcher.on("end", end => {
+        connection.disconnect();
+    });
+};
+
+exports.stopSong = (guildId) => {
+    if(!guilds[guildId]) return;
+    var g = guilds[guildId];
+    if(g.dispatcher) g.dispatcher.end();
+};
 
 ///////////////////////////////////////////////////////////////////////////////
 

@@ -1,11 +1,7 @@
-exports.execute = (client, message, args) => {
-    /*
-    if(!guilds[message.guild.id]) return;
+var main = require('./../bot.js');
 
-    var g = guilds[message.guild.id];
-    if(g.dispatcher) g.dispatcher.end();
-    if(message.guild.voiceConnection) message.guild.voiceConnection.disconnect();
-    */
+exports.execute = (client, message, args) => {
+    main.stopSong(message.guild.id);
 };
 
 exports.info = {
