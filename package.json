@@ -10,6 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "discord.js": "^11.3.0",
-    "node-opus": "^0.2.7"
+    "node-opus": "^0.2.7",
+    "youtube-finder": "^1.0.1",
+    "ytdl-core": "^0.18.7"
   }
 }

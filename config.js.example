@@ -9,6 +9,9 @@ exports.config = {
     // fortnitetracker api key https://fortnitetracker.com/site-api
     TRN_APIKEY: "xxxxxxxxxxxxxxxxxxxxxxxxxxx",
 
+    // youtube api key
+    YOUTUBE_APIKEY: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+
     // bot owner discord id
     OWNER_ID: "0000000000000000000000000",
 

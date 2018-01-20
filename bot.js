@@ -1,4 +1,6 @@
 const Discord = require('discord.js');
+const YTDL = require('ytdl-core');
+const YTF = require('youtube-finder');
 const fs = require('fs');
 const conf = require('./config.js');
 
@@ -13,6 +15,9 @@ var guilds = {};
 // get config values from a secret file
 client.config = conf.config;
 
+// youtube video searcher
+const ytclient = YTF.createClient({key: client.config.YOUTUBE_APIKEY});
+
 // add all commands
 client.commands = [];
 fs.readdir("./commands/", function(err, files){
@@ -24,7 +29,7 @@ fs.readdir("./commands/", function(err, files){
 
 ///////////////////////////////////////////////////////////////////////////////
 
-exports.playSong = (connection, guildId) => {
+exports.playSong = (connection, guildId, searchString) => {
     // create guild object if it doesnt exist
     if(!guilds[guildId]) guilds[guildId] = {
         playQueue: []
@@ -32,12 +37,20 @@ exports.playSong = (connection, guildId) => {
 
     var g = guilds[guildId];
 
-    g.dispatcher = connection.playFile(
-        './audio/Start to Finish - Slizzy McGuire (fortnite).mp3'
-    );
-
-    g.dispatcher.on("end", end => {
-        connection.disconnect();
+    var params = {
+        part: 'id',
+        q: searchString,
+        maxResults: 1,
+        type: 'video'
+    }
+    ytclient.search(params, function(err, data) {
+        //console.log("STRING:" + searchString + "\n---\n" + data);
+        var vidId = data.items[0].id.videoId;
+        g.dispatcher = connection.playStream(YTDL(vidId, {filter: "audioonly"}));
+        
+        g.dispatcher.on("end", end => {
+            connection.disconnect();
+        });
     });
 };
 
