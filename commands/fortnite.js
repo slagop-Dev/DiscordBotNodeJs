@@ -1,4 +1,5 @@
 const https = require('https');
+const Discord = require('discord.js');
 
 exports.execute = (client, message, args) => {
     var name = args[1];
@@ -25,6 +26,7 @@ exports.execute = (client, message, args) => {
         res.on('end', end => {
             body = JSON.parse(body);
             //console.log(body);    // debug
+
             // player not found
             if(body.error){
                 const emoji = client.emojis.find("name", "feelsbadman");
@@ -32,11 +34,13 @@ exports.execute = (client, message, args) => {
                 return;
             }
             // player found
+            var epicName = body["epicUserHandle"];
             var platform = body["platformName"];
             var score = body.lifeTimeStats[6]["value"];
             var matchesPlayed = body.lifeTimeStats[7]["value"];
             var wins = body.lifeTimeStats[8]["value"];
             var timePlayed = body.lifeTimeStats[13]["value"];
+            var wr = body.lifeTimeStats[9]["value"];
             var kills = body.lifeTimeStats[10]["value"];
             var kd = body.lifeTimeStats[11]["value"];
             var killsPerMin = body.lifeTimeStats[12]["value"];
@@ -46,23 +50,19 @@ exports.execute = (client, message, args) => {
             var msg = "";
             msg += "\nwins: " + wins;
             msg += "\ngames: " + matchesPlayed;
-            msg += "\nkills: " + kills + " (" + killsPerMin + "/min)";
+            msg += "\nwinrate: " + wr;
+            msg += "\n\nkills: " + kills /* + " (" + killsPerMin + "/min)"*/ ;
             msg += "\nkd: " + kd;
             msg += "\n\nplaytime: " + timePlayed;
 
-            message.channel.send({embed:
-                {
-                    color: 9955331, // wtf color code???
-                    title: "",
-                    url: url,
-                    author: {
-                        name: name + " ("+ platform +")",
-                        icon_url: "https://cdn2.unrealengine.com/Fortnite%2Fhome%2Ffn_battle_logo-1159x974-8edd8b02d505b78febe3baacec47a83c2d5215ce.png"
-                    },
-                    title: "",
-                    description: msg,
-                }
-            });
+            var embed = new Discord.RichEmbed()
+                .setAuthor(epicName, "", url)
+                .setDescription(msg)
+                .setColor(9955331)
+                .setURL(url)
+                .setThumbnail("https://cdn2.unrealengine.com/Fortnite%2Fhome%2Ffn_battle_logo-1159x974-8edd8b02d505b78febe3baacec47a83c2d5215ce.png");
+
+            message.channel.send(embed);
         });
     });
 
