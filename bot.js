@@ -47,7 +47,7 @@ exports.playSong = (connection, guildId, searchString) => {
         //console.log("STRING:" + searchString + "\n---\n" + data);
         var vidId = data.items[0].id.videoId;
         g.dispatcher = connection.playStream(YTDL(vidId, {filter: "audioonly"}));
-        
+
         g.dispatcher.on("end", end => {
             connection.disconnect();
         });
@@ -93,6 +93,17 @@ client.on("guildMemberRemove", member => {
                 .first();
     const emoji = client.emojis.find("name", "feelsbadman");
     firstWritableChannel.send(`${member.displayName} has left us ${emoji}`);
+});
+
+client.on("messageReactionAdd", (reaction, user) => {
+    if(reaction.emoji.id == "403289960884600832"    // "no"-emoji
+            && reaction.message.author == client.user   // only the bot's messages
+            && !user.bot){                          // only let humans react-delete
+        reaction.message.delete()
+            .then(msg => console.log("Deleted message by request from: "
+                                    + user.username))
+            .catch(console.error);
+    }
 });
 
 client.on("message", msg => {
