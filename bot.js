@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const YTDL = require('ytdl-core');
 const YTF = require('youtube-finder');
 const fs = require('fs');
-const conf = require('./config.js');
+//const conf = require('./config.js');  // use env-variables instead
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -13,7 +13,15 @@ const client = new Discord.Client();
 var guilds = {};
 
 // get config values from a secret file
-client.config = conf.config;
+//client.config = conf.config;
+client.config = {
+    TOKEN: process.env.BOT_TOKEN,
+    TRN_APIKEY: process.env.TRN_APIKEY,
+    YOUTUBE_APIKEY: process.env.YOUTUBE_APIKEY,
+    OWNER_ID: "101041126537973760",
+    PREFIX: ".",
+    ignore_channels: ["397961894654246913"]
+};
 
 // youtube video searcher
 const ytclient = YTF.createClient({key: client.config.YOUTUBE_APIKEY});
