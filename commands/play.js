@@ -11,10 +11,12 @@ exports.execute = (client, message, args) => {
     if(voiceChannel == null){
         message.channel.send("You are not in a voice channel :(");
         return;
-    }if(!voiceChannel.joinable){
+    }
+    if(!voiceChannel.joinable){
         message.channel.send("Not allowed to join :(");
         return;
-    }if(args.length < 2){
+    }
+    if(args.length < 2){
         message.channel.send("Specify a song to play :(");
         return;
     }

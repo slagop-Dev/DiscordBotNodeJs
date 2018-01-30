@@ -62,6 +62,18 @@ exports.playSong = (connection, guildId, searchString) => {
     });
 };
 
+exports.pauseSong = (guildId) => {
+    if(!guilds[guildId]) return;
+    var g = guilds[guildId];
+    if(g.dispatcher) g.dispatcher.pause();
+};
+
+exports.resumeSong = (guildId) => {
+    if(!guilds[guildId]) return;
+    var g = guilds[guildId];
+    if(g.dispatcher) g.dispatcher.resume();
+};
+
 exports.stopSong = (guildId) => {
     if(!guilds[guildId]) return;
     var g = guilds[guildId];

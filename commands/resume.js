@@ -1,11 +1,11 @@
 var main = require('./../bot.js');
 
 exports.execute = (client, message, args) => {
-    main.pauseSong(message.guild.id);
+    main.resumeSong(message.guild.id);
 };
 
 exports.info = {
-    name: "pause",
+    name: "resume",
     alias: [],
     permission: "default"
 };
