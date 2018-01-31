@@ -9,7 +9,7 @@ exports.execute = (client, message, args) => {
         return;
     }
     client.user.setAvatar(args[1])
-        .then(user => console.log("New avatar: " + user.avatarURL))
+        .then(user => console.log("--> New avatar: " + user.avatarURL))
         .catch(console.error);
 };
 

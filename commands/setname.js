@@ -14,7 +14,7 @@ exports.execute = (client, message, args) => {
         username += args[i] + " ";
     }
     client.user.setUsername(username)
-        .then(user => console.log("New username set: " + user.username));
+        .then(user => console.log("--> New username set: " + user.username));
 };
 
 exports.info = {

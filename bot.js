@@ -55,9 +55,11 @@ exports.playSong = (connection, guildId, searchString) => {
         //console.log("STRING:" + searchString + "\n---\n" + data);
         var vidId = data.items[0].id.videoId;
         g.dispatcher = connection.playStream(YTDL(vidId, {filter: "audioonly"}));
+        console.log("--> Started playing song with id: " + vidId);
 
         g.dispatcher.on("end", end => {
             connection.disconnect();
+            console.log("--> Song ended \n--> Leaving voice channel: " + connection.channel.name);
         });
     });
 };
@@ -66,12 +68,14 @@ exports.pauseSong = (guildId) => {
     if(!guilds[guildId]) return;
     var g = guilds[guildId];
     if(g.dispatcher) g.dispatcher.pause();
+    console.log("--> Paused song");
 };
 
 exports.resumeSong = (guildId) => {
     if(!guilds[guildId]) return;
     var g = guilds[guildId];
     if(g.dispatcher) g.dispatcher.resume();
+    console.log("--> Resumed song");
 };
 
 exports.stopSong = (guildId) => {

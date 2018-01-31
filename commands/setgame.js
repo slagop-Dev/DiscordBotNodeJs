@@ -14,7 +14,7 @@ exports.execute = (client, message, args) => {
         gameName += args[i] + " ";
     }
     client.user.setActivity(gameName)
-        .then(user => console.log("Game set: " + gameName))
+        .then(user => console.log("--> Game set: " + gameName))
         .catch(console.error);
 };
 

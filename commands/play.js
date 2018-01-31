@@ -23,7 +23,7 @@ exports.execute = (client, message, args) => {
 
     voiceChannel.join()
         .then(connection => {
-            console.log("Joined voice channel: " + voiceChannel.name);
+            console.log("--> Joined voice channel: " + voiceChannel.name);
             var searchString = "";
             for(var i = 1; i < args.length; i++){
                 searchString += args[i] + " ";
