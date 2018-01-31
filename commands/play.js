@@ -31,7 +31,7 @@ exports.execute = (client, message, args) => {
     voiceChannel.join()
         .then(connection => {
             console.log("--> Joined voice channel: " + voiceChannel.name);
-            main.playSong(connection, message.guild.id, searchString);
+            main.queueSong(connection, message.guild.id, searchString);
         })
         .catch(console.error);
 };

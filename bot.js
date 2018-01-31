@@ -37,7 +37,7 @@ fs.readdir("./commands/", function(err, files){
 
 ///////////////////////////////////////////////////////////////////////////////
 
-exports.playSong = (connection, guildId, searchString) => {
+exports.queueSong = (connection, guildId, searchString) => {
     // create guild object if it doesnt exist
     if(!guilds[guildId]) guilds[guildId] = {
         playQueue: []
@@ -54,15 +54,30 @@ exports.playSong = (connection, guildId, searchString) => {
     ytclient.search(params, function(err, data) {
         //console.log("STRING:" + searchString + "\n---\n" + data);
         var vidId = data.items[0].id.videoId;
-        g.dispatcher = connection.playStream(YTDL(vidId, {filter: "audioonly"}));
-        console.log("--> Started playing song with id: " + vidId);
-
-        g.dispatcher.on("end", end => {
-            connection.disconnect();
-            console.log("--> Song ended \n--> Leaving voice channel: " + connection.channel.name);
-        });
+        g.playQueue.push(vidId);
+        console.log("--> Queued song with id: " + vidId);
+        playSong(connection, guildId);
     });
 };
+
+function playSong(connection, guildId){
+    var g = guilds[guildId];
+    g.dispatcher = connection.playStream(YTDL(g.playQueue[0], {filter: "audioonly"}));
+    g.playQueue.shift();
+    console.log("--> Started playing song with id: " + vidId);
+
+    g.dispatcher.on("end", end => {
+        console.log("--> Song ended");
+        if(g.playQueue[0]){
+            // play next song if there are more in the Q
+            play(connection, guildId);
+        }else{
+            // leave voice channel if last song
+            connection.disconnect();
+            console.log("--> Leaving voice channel: " + connection.channel.name);
+        }
+    });
+}
 
 exports.pauseSong = (guildId) => {
     if(!guilds[guildId]) return;
