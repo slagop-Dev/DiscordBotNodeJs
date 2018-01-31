@@ -37,14 +37,19 @@ fs.readdir("./commands/", function(err, files){
 
 ///////////////////////////////////////////////////////////////////////////////
 
-exports.queueSong = (connection, guildId, searchString) => {
+exports.queueSong = (message, searchString) => {
+    // get guild id
+    var guildId = message.guild.id;
+
     // create guild object if it doesnt exist
     if(!guilds[guildId]) guilds[guildId] = {
         playQueue: []
     };
 
+    // get guild object
     var g = guilds[guildId];
 
+    // search for song on youtube and get video id
     var params = {
         part: 'id',
         q: searchString,
@@ -56,7 +61,14 @@ exports.queueSong = (connection, guildId, searchString) => {
         var vidId = data.items[0].id.videoId;
         g.playQueue.push(vidId);
         console.log("--> Queued song with id: " + vidId);
-        playSong(connection, guildId);
+
+        if(!message.guild.voiceConnection){
+            message.member.voiceChannel.join().then((connection) => {
+                playSong(connection, guildId);
+                console.log("--> Joined voice channel: "
+                            + message.member.voiceChannel.name);
+            });
+        }
     });
 };
 
@@ -70,7 +82,7 @@ function playSong(connection, guildId){
         console.log("--> Song ended");
         if(g.playQueue[0]){
             // play next song if there are more in the Q
-            play(connection, guildId);
+            playSong(connection, guildId);
         }else{
             // leave voice channel if last song
             connection.disconnect();
