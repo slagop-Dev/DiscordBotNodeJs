@@ -3,10 +3,17 @@ var main = require('./../bot.js');
 exports.execute = (client, message, args) => {
     var voiceChannel = message.member.voiceChannel;
 
-    // already in voice channel (bugged)
-    //if(voiceChannel.connection){
-    //    main.playSong(voiceChannel.connection, message.guild.id);
-    //}
+    // search string
+    var searchString = "";
+    for(var i = 1; i < args.length; i++){
+        searchString += args[i] + " ";
+    }
+
+    // already in voice channel
+    if(voiceChannel.connection){
+        main.playSong(voiceChannel.connection, message.guild.id, searchString);
+        return;
+    }
 
     if(voiceChannel == null){
         message.channel.send("You are not in a voice channel :(");
@@ -24,10 +31,6 @@ exports.execute = (client, message, args) => {
     voiceChannel.join()
         .then(connection => {
             console.log("--> Joined voice channel: " + voiceChannel.name);
-            var searchString = "";
-            for(var i = 1; i < args.length; i++){
-                searchString += args[i] + " ";
-            }
             main.playSong(connection, message.guild.id, searchString);
         })
         .catch(console.error);
