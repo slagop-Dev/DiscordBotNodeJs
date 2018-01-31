@@ -63,8 +63,8 @@ exports.queueSong = (connection, guildId, searchString) => {
 function playSong(connection, guildId){
     var g = guilds[guildId];
     g.dispatcher = connection.playStream(YTDL(g.playQueue[0], {filter: "audioonly"}));
+    console.log("--> Started playing song with id: " + g.playQueue[0]);
     g.playQueue.shift();
-    console.log("--> Started playing song with id: " + vidId);
 
     g.dispatcher.on("end", end => {
         console.log("--> Song ended");
