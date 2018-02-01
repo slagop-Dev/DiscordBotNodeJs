@@ -1,4 +1,2 @@
-config.js
+config.js # secret file
 node_modules/
-.todo.txt
-*.mp3
