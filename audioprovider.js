@@ -35,32 +35,37 @@ exports.queueSong = (message, searchString) => {
             return;
         }
         var vidId = data.items[0].id.videoId;
-        g.playQueue.push(vidId);
-        console.log("--> Queued song with id: " + vidId);
 
-        if(!message.guild.voiceConnection){
-            message.member.voiceChannel.join().then((connection) => {
-                playSong(connection, message);
-                console.log("--> Joined voice channel: "
-                            + message.member.voiceChannel.name);
-            });
-        }
+        // get info about video
+        YTDL.getInfo(vidId, (err, info) => {
+            //console.log("--> Started playing song: " + info.title + " (" + g.playQueue[0] + ")");
+            message.channel.send("<:musical_note:408759580080865280> Queued song: **" + info.title + "**");
+
+            var song = {
+                id: vidId,
+                title: info.title
+            };
+            g.playQueue.push(song);
+            console.log("--> Queued song: " + info.title + "(" + vidId + ")");
+
+            // join voice channel if not in one already
+            if(!message.guild.voiceConnection){
+                message.member.voiceChannel.join().then((connection) => {
+                    playSong(connection, guildId);
+                    console.log("--> Joined voice channel: "
+                                + message.member.voiceChannel.name);
+                });
+            }
+        });
     });
 };
 
-function playSong(connection, message){
-    var guildId = message.guild.id;
+function playSong(connection, guildId){
     var g = guilds[guildId];
-    g.dispatcher = connection.playStream(YTDL(g.playQueue[0], {filter: "audioonly"}));
-
-    // get info about video
-    YTDL.getInfo(g.playQueue[0], (err, info) => {
-        console.log("--> Started playing song: " + info.title + " (" + g.playQueue[0] + ")");
-        message.channel.send("<:musical_note:408759580080865280> Queued song: **" + info.title + "**");
-    });
-
+    g.dispatcher = connection.playStream(YTDL(g.playQueue[0].id, {filter: "audioonly"}));
+    console.log("--> Started playing song: " + g.playQueue[0].title
+                                        + " (" + g.playQueue[0].id + ")");
     g.playQueue.shift();
-
 
     g.dispatcher.on("end", end => {
         console.log("--> Song ended");

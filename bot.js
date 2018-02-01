@@ -35,7 +35,7 @@ client.on("ready", () => {
     console.log(`| guilds:   ${client.guilds.array().length}  |`);
     console.log(`| channels: ${client.channels.array().length} |`);
     console.log("+--------------+");
-    client.user.setActivity(client.config.PREFIX + "help");
+    client.user.setActivity(client.config.PREFIX + "help | reworked audio system");
 });
 
 client.on("guildMemberAdd", member => {
