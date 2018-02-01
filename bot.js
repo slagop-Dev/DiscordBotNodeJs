@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const YTDL = require('ytdl-core');
 const YTF = require('youtube-finder');
 const fs = require('fs');
-//const conf = require('./config.js');  // use env-variables instead
+const confLoader = require('./util/configloader.js')
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -12,16 +12,11 @@ const client = new Discord.Client();
 // all servers with their play queues and audio providers
 var guilds = {};
 
-// get config values from a secret file
-//client.config = conf.config;
-client.config = {
-    TOKEN: process.env.BOT_TOKEN,
-    TRN_APIKEY: process.env.TRN_APIKEY,
-    YOUTUBE_APIKEY: process.env.YOUTUBE_APIKEY,
-    OWNER_ID: "101041126537973760",
-    PREFIX: ".",
-    ignore_channels: ["397961894654246913"]
-};
+// get config values.
+// s = "heroku" => load from env variables
+// s = "local" => load from config file
+var s = "heroku";
+client.config = confLoader.loadConf(s);
 
 // youtube video searcher
 const ytclient = YTF.createClient({key: client.config.YOUTUBE_APIKEY});
@@ -36,6 +31,8 @@ fs.readdir("./commands/", function(err, files){
 });
 
 ///////////////////////////////////////////////////////////////////////////////
+
+// TODO move all music things
 
 exports.queueSong = (message, searchString) => {
     // get guild id
@@ -58,6 +55,10 @@ exports.queueSong = (message, searchString) => {
     }
     ytclient.search(params, function(err, data) {
         //console.log("STRING:" + searchString + "\n---\n" + data);
+        if(data.items.length == 0){
+            message.channel.send("<:warning:408740166715310100> No song found");
+            return;
+        }
         var vidId = data.items[0].id.videoId;
         g.playQueue.push(vidId);
         console.log("--> Queued song with id: " + vidId);
@@ -77,6 +78,8 @@ function playSong(connection, guildId){
     g.dispatcher = connection.playStream(YTDL(g.playQueue[0], {filter: "audioonly"}));
     console.log("--> Started playing song with id: " + g.playQueue[0]);
     g.playQueue.shift();
+
+    // TODO: get song name. new ytdl filter?
 
     g.dispatcher.on("end", end => {
         console.log("--> Song ended");
@@ -105,9 +108,17 @@ exports.resumeSong = (guildId) => {
     console.log("--> Resumed song");
 };
 
+exports.skipSong = (guildId) => {
+    if(!guilds[guildId]) return;
+    var g = guilds[guildId];
+    if(g.dispatcher) g.dispatcher.end();
+};
+
 exports.stopSong = (guildId) => {
     if(!guilds[guildId]) return;
     var g = guilds[guildId];
+    // remove rest of songs or dispatcher onEnd will keep looping
+    g.playQueue = [];
     if(g.dispatcher) g.dispatcher.end();
 };
 

@@ -2,12 +2,17 @@ var main = require('./../bot.js');
 
 exports.execute = (client, message, args) => {
     if(args.length < 2){
-        message.channel.send("Specify a song to play :(");
+        message.channel.send("<:warning:408740166715310100> No song specified");
         return;
     }
 
     if(!message.member.voiceChannel){
-        message.channel.send("You are not in a voice channel :(");
+        message.channel.send("<:warning:408740166715310100> You are not in a voice channel");
+        return;
+    }
+
+    if(!message.member.voiceChannel.joinable){
+        message.channel.send("<:warning:408740166715310100> Not allowed to join. Maybe full channel");
         return;
     }
 
