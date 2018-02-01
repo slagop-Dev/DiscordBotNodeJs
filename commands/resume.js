@@ -1,7 +1,7 @@
-var main = require('./../bot.js');
+var ap = require('./../audioprovider.js');
 
 exports.execute = (client, message, args) => {
-    main.resumeSong(message.guild.id);
+    ap.resumeSong(message.guild.id);
 };
 
 exports.info = {

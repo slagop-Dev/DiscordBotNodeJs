@@ -1,4 +1,4 @@
-var main = require('./../bot.js');
+var ap = require('./../audioprovider.js');
 
 exports.execute = (client, message, args) => {
     if(args.length < 2){
@@ -22,7 +22,7 @@ exports.execute = (client, message, args) => {
         searchString += args[i] + " ";
     }
 
-    main.queueSong(message, searchString);
+    ap.queueSong(message, searchString);
 };
 
 exports.info = {

@@ -1,25 +1,20 @@
 const Discord = require('discord.js');
-const YTDL = require('ytdl-core');
-const YTF = require('youtube-finder');
 const fs = require('fs');
-const confLoader = require('./util/configloader.js')
+const confLoader = require('./util/configloader.js');
 
 ///////////////////////////////////////////////////////////////////////////////
 
 // bot client
 const client = new Discord.Client();
 
-// all servers with their play queues and audio providers
-var guilds = {};
-
 // get config values.
 // s = "heroku" => load from env variables
 // s = "local" => load from config file
 var s = "heroku";
 client.config = confLoader.loadConf(s);
-
-// youtube video searcher
-const ytclient = YTF.createClient({key: client.config.YOUTUBE_APIKEY});
+exports.config = () => {
+    return client.config;
+}
 
 // add all commands
 client.commands = [];
@@ -29,98 +24,6 @@ fs.readdir("./commands/", function(err, files){
         client.commands.push(cmd);
     });
 });
-
-///////////////////////////////////////////////////////////////////////////////
-
-// TODO move all music things
-
-exports.queueSong = (message, searchString) => {
-    // get guild id
-    var guildId = message.guild.id;
-
-    // create guild object if it doesnt exist
-    if(!guilds[guildId]) guilds[guildId] = {
-        playQueue: []
-    };
-
-    // get guild object
-    var g = guilds[guildId];
-
-    // search for song on youtube and get video id
-    var params = {
-        part: 'id',
-        q: searchString,
-        maxResults: 1,
-        type: 'video'
-    }
-    ytclient.search(params, function(err, data) {
-        //console.log("STRING:" + searchString + "\n---\n" + data);
-        if(data.items.length == 0){
-            message.channel.send("<:warning:408740166715310100> No song found");
-            return;
-        }
-        var vidId = data.items[0].id.videoId;
-        g.playQueue.push(vidId);
-        console.log("--> Queued song with id: " + vidId);
-
-        if(!message.guild.voiceConnection){
-            message.member.voiceChannel.join().then((connection) => {
-                playSong(connection, guildId);
-                console.log("--> Joined voice channel: "
-                            + message.member.voiceChannel.name);
-            });
-        }
-    });
-};
-
-function playSong(connection, guildId){
-    var g = guilds[guildId];
-    g.dispatcher = connection.playStream(YTDL(g.playQueue[0], {filter: "audioonly"}));
-    console.log("--> Started playing song with id: " + g.playQueue[0]);
-    g.playQueue.shift();
-
-    // TODO: get song name. new ytdl filter?
-
-    g.dispatcher.on("end", end => {
-        console.log("--> Song ended");
-        if(g.playQueue[0]){
-            // play next song if there are more in the Q
-            playSong(connection, guildId);
-        }else{
-            // leave voice channel if last song
-            connection.disconnect();
-            console.log("--> Leaving voice channel: " + connection.channel.name);
-        }
-    });
-}
-
-exports.pauseSong = (guildId) => {
-    if(!guilds[guildId]) return;
-    var g = guilds[guildId];
-    if(g.dispatcher) g.dispatcher.pause();
-    console.log("--> Paused song");
-};
-
-exports.resumeSong = (guildId) => {
-    if(!guilds[guildId]) return;
-    var g = guilds[guildId];
-    if(g.dispatcher) g.dispatcher.resume();
-    console.log("--> Resumed song");
-};
-
-exports.skipSong = (guildId) => {
-    if(!guilds[guildId]) return;
-    var g = guilds[guildId];
-    if(g.dispatcher) g.dispatcher.end();
-};
-
-exports.stopSong = (guildId) => {
-    if(!guilds[guildId]) return;
-    var g = guilds[guildId];
-    // remove rest of songs or dispatcher onEnd will keep looping
-    g.playQueue = [];
-    if(g.dispatcher) g.dispatcher.end();
-};
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -169,9 +72,10 @@ client.on("messageReactionAdd", (reaction, user) => {
 });
 
 client.on("message", msg => {
-    if(client.config.ignore_channels.includes(msg.channel.id)) return;
     // avoid spam channels
+    if(client.config.ignore_channels.includes(msg.channel.id)) return;
 
+    // log all messages read (not saved)
     var u = msg.author.username;
     var c = msg.channel.name;
     var m = msg.content;
