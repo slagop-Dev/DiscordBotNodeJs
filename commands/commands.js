@@ -1,3 +1,5 @@
+const Discord = require('discord.js');
+
 exports.execute = (client, message, args) => {
     var commands = "";
     client.commands.forEach(command => {
