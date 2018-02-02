@@ -1,6 +1,7 @@
+require('dotenv').config()
 const Discord = require('discord.js');
 const fs = require('fs');
-const confLoader = require('./util/configloader.js');
+const cfg = require('./config.js');
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -8,10 +9,15 @@ const confLoader = require('./util/configloader.js');
 const client = new Discord.Client();
 
 // get config values.
-// s = "heroku" => load from env variables
-// s = "local" => load from config file
-var s = "heroku";
-client.config = confLoader.loadConf(s);
+client.config = {
+    TOKEN: process.env.BOT_TOKEN,
+    TRN_APIKEY: process.env.TRN_APIKEY,
+    YOUTUBE_APIKEY: process.env.YOUTUBE_APIKEY,
+    OWNER_ID: cfg.config.OWNER_ID,
+    PREFIX: cfg.config.PREFIX,
+    IGNORE_CHANNELS: cfg.config.IGNORE_CHANNELS
+};
+// let other files access config
 exports.config = () => {
     return client.config;
 }
@@ -73,7 +79,7 @@ client.on("messageReactionAdd", (reaction, user) => {
 
 client.on("message", msg => {
     // avoid spam channels
-    if(client.config.ignore_channels.includes(msg.channel.id)) return;
+    if(client.config.IGNORE_CHANNELS.includes(msg.channel.id)) return;
 
     // log all messages read (not saved)
     var u = msg.author.username;
