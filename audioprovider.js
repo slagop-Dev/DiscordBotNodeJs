@@ -46,7 +46,7 @@ exports.queueSong = (message, searchString) => {
                 title: info.title
             };
             g.playQueue.push(song);
-            console.log("--> Queued song: " + info.title + "(" + vidId + ")");
+            console.log("--> Queued song: " + info.title + " (" + vidId + ")");
 
             // join voice channel if not in one already
             if(!message.guild.voiceConnection){

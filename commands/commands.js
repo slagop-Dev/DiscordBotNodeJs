@@ -1,9 +1,14 @@
 exports.execute = (client, message, args) => {
     var commands = "";
     client.commands.forEach(command => {
-        commands += command.info.name + ", ";
+        commands += command.info.name + "\n";
     });
-    message.channel.send(commands.slice(0, -2));
+
+    var embed = new Discord.RichEmbed()
+        .setDescription(commands)
+        .setColor(9955331);
+
+    message.channel.send(embed);
 };
 
 exports.info = {
