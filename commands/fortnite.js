@@ -4,7 +4,7 @@ const Discord = require('discord.js');
 exports.execute = (client, message, args) => {
     var name = args[1];
 
-    if(name === "" || name === null){
+    if(name === "" || name === null || name.indexOf(":") > -1){
         const emoji = client.emojis.find("name", "aaa");
         message.channel.send(`Illegal argument ${emoji}`);
         return;
