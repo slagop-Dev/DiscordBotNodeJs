@@ -2,10 +2,14 @@
 
 A nutty node.js Discord Bot
 
-Displays some **Fortnite** stats + other useless commands
+Displays **Fortnite** stats  
+Can play music from youtube
 
-Trying to fix Heroku 24/7 host
+Heroku 24/7 host
 
 ![good bot](http://puu.sh/yYCnN/889eb951ec.png)
 
-[discord.js](https://github.com/hydrabolt/discord.js/)
+![good bot2](https://i.imgur.com/QFmJrWp.png)
+
+[discord.js](https://github.com/hydrabolt/discord.js/)  
+[fortnitetracker-7days-stats](https://www.npmjs.com/package/fortnitetracker-7days-stats)
