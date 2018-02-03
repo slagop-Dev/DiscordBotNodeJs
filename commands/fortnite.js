@@ -46,7 +46,6 @@ exports.execute = (client, message, args) => {
             var killsPerMin = body.lifeTimeStats[12]["value"];
             var url = "https://fortnitetracker.com/profile/pc/" + name;
 
-
             var msg = "";
             msg += "\nwins: " + wins;
             msg += "\ngames: " + matchesPlayed;
