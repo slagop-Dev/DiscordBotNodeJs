@@ -11,8 +11,8 @@ exports.execute = (client, message, args) => {
     var url = "https://fortnitetracker.com/profile/pc/" + name;
     message.channel.startTyping();
 
-    fortnite.getStats(name, "pc", (result) => {
-        if(result.status != "ok"){
+    fortnite.getStats(name, "pc", (err, result) => {
+        if(err){
             message.channel.send("Player not found");
             message.channel.stopTyping();
             return;
