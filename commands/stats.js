@@ -5,7 +5,7 @@ exports.execute = (client, message, args) => {
     msg += `\n channels: ${client.channels.array().length}`;
     msg += `\n emojis: ${client.emojis.array().length}`;
     msg += `\n ping: ${client.ping}ms`;
-    msg += `\n uptime: ${(client.uptime/1000)}s`;   // TODO fix format
+    msg += `\n uptime: ${~~(client.uptime/1000)}s`;   // TODO fix format
     message.channel.send(msg);
 };
 

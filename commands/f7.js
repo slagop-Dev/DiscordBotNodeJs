@@ -3,17 +3,23 @@ const fortnite = require('fortnitetracker-7days-stats');
 
 exports.execute = (client, message, args) => {
     if(args.length < 2){
-        message.channel.send("No player mentioned");
+        message.channel.send("<:warning:410852302698708993> No player mentioned");
         return;
     }
 
-    var name = args[1];
-    var url = "https://fortnitetracker.com/profile/pc/" + name;
+    var name = "";
+    for(var i = 1; i < args.length; i++){
+        name += args[i] + " ";
+    }
+    name = name.trim(); // remove last space
+
+    var url = "https://fortnitetracker.com/profile/pc/"
+                                + encodeURIComponent(name);
     message.channel.startTyping();
 
     fortnite.getStats(name, "pc", (err, result) => {
         if(err){
-            message.channel.send("Player not found");
+            message.channel.send("<:warning:410852302698708993> Player not found");
             message.channel.stopTyping();
             return;
         }

@@ -2,17 +2,22 @@ const https = require('https');
 const Discord = require('discord.js');
 
 exports.execute = (client, message, args) => {
-    var name = args[1];
+    var name = "";
+    for(var i = 1; i < args.length; i++){
+        name += args[i] + " ";
+    }
+    name = name.trim(); // remove last space
 
-    if(name === "" || name === null || name.indexOf(":") > -1){
-        const emoji = client.emojis.find("name", "aaa");
+    if(name === "" || name.indexOf(":") > -1){
+        var emoji = client.emojis.find("name", "aaa");
+        if(emoji === null) emoji = ":(";
         message.channel.send(`Illegal argument ${emoji}`);
         return;
     }
-
+    
     var options = {
         host: 'api.fortnitetracker.com',
-        path: '/v1/profile/pc/' + name,
+        path: '/v1/profile/pc/' + encodeURIComponent(name),
         port: 443,  // isnt this used for mail?
         method: 'GET',
         headers: { 'TRN-Api-Key': client.config.TRN_APIKEY }
@@ -29,7 +34,8 @@ exports.execute = (client, message, args) => {
 
             // player not found
             if(body.error){
-                const emoji = client.emojis.find("name", "feelsbadman");
+                var emoji = client.emojis.find("name", "feelsbadman");
+                if(emoji === null) emoji = ":(";
                 message.channel.send(`Player not found ${emoji}`);
                 return;
             }
@@ -44,7 +50,8 @@ exports.execute = (client, message, args) => {
             var kills = body.lifeTimeStats[10]["value"];
             var kd = body.lifeTimeStats[11]["value"];
             var killsPerMin = body.lifeTimeStats[12]["value"];
-            var url = "https://fortnitetracker.com/profile/pc/" + name;
+            var url = "https://fortnitetracker.com/profile/pc/"
+                                    + encodeURIComponent(name);
 
             var msg = "";
             msg += "\nwins: " + wins;

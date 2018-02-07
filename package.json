@@ -16,6 +16,6 @@
     "node-opus": "^0.2.7",
     "request": "^2.83.0",
     "youtube-finder": "^1.0.1",
-    "ytdl-core": "^0.18.7"
+    "ytdl-core": "^0.20.1"
   }
 }

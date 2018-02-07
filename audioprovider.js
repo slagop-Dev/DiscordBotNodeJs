@@ -38,15 +38,15 @@ exports.queueSong = (message, searchString) => {
 
         // get info about video
         YTDL.getInfo(vidId, (err, info) => {
-            //console.log("--> Started playing song: " + info.title + " (" + g.playQueue[0] + ")");
-            message.channel.send("<:musical_note:408759580080865280> Queued song: **" + info.title + "**");
-
             var song = {
                 id: vidId,
-                title: info.title
+                title: vidId
             };
+            if(!err) song.title = info.title;
+            message.channel.send("<:musical_note:408759580080865280> Queued song: **" + song.title + "**");
+
             g.playQueue.push(song);
-            console.log("--> Queued song: " + info.title + " (" + vidId + ")");
+            console.log("--> Queued song: " + song.title + " (" + vidId + ")");
 
             // join voice channel if not in one already
             if(!message.guild.voiceConnection){
