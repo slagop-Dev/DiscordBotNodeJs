@@ -8,13 +8,13 @@ exports.execute = (client, message, args) => {
     }
     name = name.trim(); // remove last space
 
-    if(name === "" || name.indexOf(":") > -1){
+    if(name === "" || name.indexOf(":") > -1 || !isValid(name)){
         var emoji = client.emojis.find("name", "aaa");
         if(emoji === null) emoji = ":(";
         message.channel.send(`Illegal argument ${emoji}`);
         return;
     }
-    
+
     var options = {
         host: 'api.fortnitetracker.com',
         path: '/v1/profile/pc/' + encodeURIComponent(name),
@@ -74,6 +74,11 @@ exports.execute = (client, message, args) => {
 
     req.end();
 };
+
+// copypasted from stackoverflow. weird regex stuff
+function isValid(str){
+    return !/[~`!#$%\^&*+=\[\]\\';,/{}|\\":<>\?]/g.test(str);
+}
 
 exports.info = {
     name: "fortnite",

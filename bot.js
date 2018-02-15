@@ -84,6 +84,7 @@ client.on("message", msg => {
     // log all messages read (not saved)
     var u = msg.author.username;
     var c = msg.channel.name;
+    if(c == undefined) c = "private";
     var m = msg.content;
     console.log("[" + c + "] " + u + ": " + m);
 
