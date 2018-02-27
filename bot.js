@@ -15,7 +15,8 @@ client.config = {
     YOUTUBE_APIKEY: process.env.YOUTUBE_APIKEY,
     OWNER_ID: cfg.config.OWNER_ID,
     PREFIX: cfg.config.PREFIX,
-    IGNORE_CHANNELS: cfg.config.IGNORE_CHANNELS
+    IGNORE_CHANNELS: cfg.config.IGNORE_CHANNELS,
+    WELCOME_MESSAGE_CHANNEL: cfg.config.WELCOME_MESSAGE_CHANNEL
 };
 // let other files access config
 exports.config = () => {
@@ -46,24 +47,44 @@ client.on("ready", () => {
 
 client.on("guildMemberAdd", member => {
     var guild = member.guild;
-    var firstWritableChannel = guild.channels.filter(c => c.type === "text"
-            && c.permissionsFor(guild.client.user).has("SEND_MESSAGES"))
-                .sort((a, b) => a.position - b.position
-            || Long.fromString(a.id).sub(Long.fromString(b.id)).toNumber())
-                .first();
+    var channelToSend = null;
+
+    // if guild has a specified channel to use for welcome message
+    if(guild.id in client.config.WELCOME_MESSAGE_CHANNEL){
+        var channelId = client.config.WELCOME_MESSAGE_CHANNEL[guild.id];
+        channelToSend = guild.channels.get(channelId);
+    }
+    // otherwise use the first channel where the bot can send messages
+    else{
+        channelToSend = guild.channels.filter(c => c.type === "text"
+                && c.permissionsFor(guild.client.user).has("SEND_MESSAGES"))
+                    .sort((a, b) => a.position - b.position
+                || Long.fromString(a.id).sub(Long.fromString(b.id)).toNumber())
+                    .first();
+    }
     const emoji = client.emojis.find("name", "feelsgoodman");
-    firstWritableChannel.send(`Welcome ${member.displayName}! ${emoji}`);
+    channelToSend.send(`Welcome ${member.displayName}! ${emoji}`);
 });
 
 client.on("guildMemberRemove", member => {
     var guild = member.guild;
-    var firstWritableChannel = guild.channels.filter(c => c.type === "text"
-            && c.permissionsFor(guild.client.user).has("SEND_MESSAGES"))
-                .sort((a, b) => a.position - b.position
-            || Long.fromString(a.id).sub(Long.fromString(b.id)).toNumber())
-                .first();
+    var channelToSend = null;
+
+    // if guild has a specified channel to use for welcome (and goodbye) messages
+    if(guild.id in client.config.WELCOME_MESSAGE_CHANNEL){
+        var channelId = client.config.WELCOME_MESSAGE_CHANNEL[guild.id];
+        channelToSend = guild.channels.get(channelId);
+    }
+    // otherwise use the first channel where the bot can send messages
+    else{
+        channelToSend = guild.channels.filter(c => c.type === "text"
+                && c.permissionsFor(guild.client.user).has("SEND_MESSAGES"))
+                    .sort((a, b) => a.position - b.position
+                || Long.fromString(a.id).sub(Long.fromString(b.id)).toNumber())
+                    .first();
+    }
     const emoji = client.emojis.find("name", "feelsbadman");
-    firstWritableChannel.send(`${member.displayName} has left us ${emoji}`);
+    channelToSend.send(`${member.displayName} has left us ${emoji}`);
 });
 
 client.on("messageReactionAdd", (reaction, user) => {
