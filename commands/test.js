@@ -3,11 +3,7 @@
 */
 
 exports.execute = (client, message, args) => {
-    message.channel.send("test complete <:warning:408740166715310100>")
-        .then(msg => {
-            msg.react(client.emojis.find("name", "no").id);
-        })
-        .catch(console.error);
+    message.channel.send("test command");
 };
 
 exports.info = {
