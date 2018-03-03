@@ -28,5 +28,6 @@ exports.execute = (client, message, args) => {
 exports.info = {
     name: "play",
     alias: [],
-    permission: "default"
+    permission: "default",
+    type: "music"
 };

@@ -12,5 +12,6 @@ exports.execute = (client, message, args) => {
 exports.info = {
     name: "stats",
     alias: ["status", "info"],
-    permission: "default"
+    permission: "default",
+    type: "general"
 };

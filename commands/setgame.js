@@ -21,5 +21,6 @@ exports.execute = (client, message, args) => {
 exports.info = {
     name: "setgame",
     alias: ["setbotgame", "setstatus"],
-    permission: "default"
+    permission: "default",
+    type: "admin"
 };

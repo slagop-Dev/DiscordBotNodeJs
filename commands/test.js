@@ -9,5 +9,6 @@ exports.execute = (client, message, args) => {
 exports.info = {
     name: "test",
     alias: ["test1", "test2", "test3"],
-    permission: "default"
+    permission: "default",
+    type: "general"
 };

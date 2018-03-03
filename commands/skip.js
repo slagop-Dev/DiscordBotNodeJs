@@ -7,5 +7,6 @@ exports.execute = (client, message, args) => {
 exports.info = {
     name: "skip",
     alias: [],
-    permission: "default"
+    permission: "default",
+    type: "music"
 };

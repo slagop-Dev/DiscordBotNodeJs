@@ -7,5 +7,6 @@ exports.execute = (client, message, args) => {
 exports.info = {
     name: "invite",
     alias: ["inv"],
-    permission: "default"
+    permission: "default",
+    type: "general"
 };

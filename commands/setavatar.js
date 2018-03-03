@@ -16,5 +16,6 @@ exports.execute = (client, message, args) => {
 exports.info = {
     name: "setavatar",
     alias: ["setbotavatar"],
-    permission: "default"
+    permission: "default",
+    type: "admin"
 };

@@ -7,5 +7,6 @@ exports.execute = (client, message, args) => {
 exports.info = {
     name: "help",
     alias: [],
-    permission: "default"
+    permission: "default",
+    type: "general"
 };

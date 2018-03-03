@@ -83,5 +83,6 @@ function isValid(str){
 exports.info = {
     name: "fortnite",
     alias: ["fn", "f"],
-    permission: "default"
+    permission: "default",
+    type: "general"
 };

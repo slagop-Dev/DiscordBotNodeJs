@@ -6,5 +6,6 @@ exports.execute = (client, message, args) => {
 exports.info = {
     name: "pubg",
     alias: [],
-    permission: "default"
+    permission: "default",
+    type: "fun"
 };

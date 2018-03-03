@@ -31,5 +31,6 @@ exports.execute = (client, message, args) => {
 exports.info = {
     name: "russianroulette",
     alias: ["rr", "russian", "roulette"],
-    permission: "default"
+    permission: "default",
+    type: "fun"
 };

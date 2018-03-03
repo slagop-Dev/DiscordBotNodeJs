@@ -47,5 +47,6 @@ exports.execute = (client, message, args) => {
 exports.info = {
     name: "f7",
     alias: ["fortnite7"],
-    permission: "default"
+    permission: "default",
+    type: "general"
 };

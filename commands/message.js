@@ -64,6 +64,7 @@ exports.execute = (client, message, args) => {
 
 exports.info = {
     name: "message",
-    alias: ["sendMessage", "m"],
-    permission: "default"
+    alias: ["sendMessage", "msg", "m"],
+    permission: "default",
+    type: "general"
 };

@@ -73,5 +73,6 @@ exports.execute = (client, message, args) => {
 exports.info = {
     name: "4chan",
     alias: ["4ch", "4c", "4"],
-    permission: "default"
+    permission: "default",
+    type: "general"
 };
