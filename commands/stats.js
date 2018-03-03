@@ -7,6 +7,8 @@ exports.execute = (client, message, args) => {
     msg += `\n ping: ${client.ping}ms`;
     msg += `\n uptime: ${~~(client.uptime/1000)}s`;   // TODO fix format
     message.channel.send(msg);
+
+    // TODO: add embed
 };
 
 exports.info = {

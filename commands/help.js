@@ -4,6 +4,9 @@ exports.execute = (client, message, args) => {
         .catch(console.error);
 };
 
+// TODO add some way of noticing the user of .commands
+// TODO add .help cmd
+
 exports.info = {
     name: "help",
     alias: [],

@@ -1,14 +1,39 @@
 const Discord = require('discord.js');
 
 exports.execute = (client, message, args) => {
-    var commands = "";
+    var generalCommands = "";
+    var musicCommands = "";
+    var funCommands = "";
+    var adminCommands = "";
+
     client.commands.forEach(command => {
-        commands += command.info.name + "\n";
+        switch(command.info.type){
+            case "general":
+                generalCommands += command.info.name + "\n";
+                break;
+
+            case "music":
+                musicCommands += command.info.name + "\n";
+                break;
+
+            case "fun":
+                funCommands += command.info.name + "\n";
+                break;
+
+            case "admin":
+                adminCommands += command.info.name + "\n";
+                break;
+            
+            // ignore hidden commands :^)
+        }
     });
 
     var embed = new Discord.RichEmbed()
-        .setDescription(commands)
-        .setColor(9955331);
+        .setColor(9955331)
+        .addField("General Commands", generalCommands, true)
+        .addField("Music Commands", musicCommands, true)
+        .addField("Fun Commands", funCommands, true)
+        .addField("Admin Commands", adminCommands, true);
 
     message.channel.send(embed);
 };
