@@ -115,8 +115,13 @@ client.on("message", msg => {
 
     client.commands.forEach(command => {
         if(cmdName === command.info.name || command.info.alias.includes(cmdName)){
-            command.execute(client, msg, args);
-            // TODO admin check
+            // admin check
+            if(command.info.permission == "admin"
+                    && msg.author.id != client.config.OWNER_ID){
+                msg.channel.send("Admin only command :^)");
+            }else{
+                command.execute(client, msg, args);
+            }
         }
     });
 });

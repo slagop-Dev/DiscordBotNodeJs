@@ -1,4 +1,8 @@
 exports.execute = (client, message, args) => {
+    if(args.length < 2){
+        return;
+    }
+
     let quote = '"';
 
     // remove command word
@@ -7,7 +11,7 @@ exports.execute = (client, message, args) => {
     // change args parse if server name contains spaces
     if(text.indexOf(quote) > -1){
         args = [];
-        var end = text.substring(2).indexOf('"');
+        var end = text.substring(2).indexOf(quote);
         args[0] = "";
         args[1] = text.substring(2, end+2); // guildname
 
