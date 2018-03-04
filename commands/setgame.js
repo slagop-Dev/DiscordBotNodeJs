@@ -1,9 +1,4 @@
 exports.execute = (client, message, args) => {
-    if(message.author.id != client.config.OWNER_ID){
-        message.channel.send("Only " + message.guild.members.get(client.config.OWNER_ID).toString()
-                                    + " can use this command");
-        return;
-    }
     if(args.length < 2){
         message.channel.send("no game specified");
         return;

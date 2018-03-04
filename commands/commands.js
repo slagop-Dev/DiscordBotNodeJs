@@ -23,16 +23,16 @@ exports.execute = (client, message, args) => {
             case "admin":
                 adminCommands += command.info.name + "\n";
                 break;
-            
+
             // ignore hidden commands :^)
         }
     });
 
     var embed = new Discord.RichEmbed()
         .setColor(9955331)
-        .addField("General Commands", generalCommands, true)
+        .addField("General Commands", generalCommands, false)
         .addField("Music Commands", musicCommands, true)
-        .addField("Fun Commands", funCommands, true)
+        .addField("Fun Commands", funCommands, false)
         .addField("Admin Commands", adminCommands, true);
 
     message.channel.send(embed);
