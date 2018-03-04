@@ -1,6 +1,12 @@
+const Discord = require('discord.js');
+
 exports.execute = (client, message, args) => {
     client.generateInvite().then(link => {
-        message.channel.send("Invite me to your guild(server) with this link \n" + link);
+        var embed = new Discord.RichEmbed()
+            .setColor(9955331)
+            .addField("Invite link", "[link](" + link + ")", false);
+
+        message.channel.send(embed);
     });
 };
 
