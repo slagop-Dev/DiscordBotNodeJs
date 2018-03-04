@@ -30,17 +30,17 @@ exports.execute = (client, message, args) => {
 
     var embed = new Discord.RichEmbed()
         .setColor(9955331)
-        .addField("General Commands", generalCommands, false)
-        .addField("Music Commands", musicCommands, true)
-        .addField("Fun Commands", funCommands, false)
-        .addField("Admin Commands", adminCommands, true);
+        .addField("General Commands", generalCommands + "\n", false)
+        .addField("Music Commands", musicCommands + "\n", false)
+        .addField("Fun Commands", funCommands + "\n", false)
+        .addField("Admin Commands", adminCommands + "\n", false);
 
     message.channel.send(embed);
 };
 
 exports.info = {
     name: "commands",
-    alias: [],
+    alias: ["cmds", "cmd", "c"],
     permission: "default",
     type: "general"
 };

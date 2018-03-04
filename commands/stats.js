@@ -1,12 +1,12 @@
 const Discord = require('discord.js');
 
 exports.execute = (client, message, args) => {
-    var msg = ` commands: ${client.commands.length}`;
-    msg += `\n guilds: ${client.guilds.array().length}`;
-    msg += `\n channels: ${client.channels.array().length}`;
-    msg += `\n emojis: ${client.emojis.array().length}`;
-    msg += `\n ping: ${client.ping}ms`;
-    msg += `\n uptime: ${~~(client.uptime/1000)}s`;   // TODO fix format
+    var msg = `commands: ${client.commands.length}`;
+    msg += `\nguilds: ${client.guilds.array().length}`;
+    msg += `\nchannels: ${client.channels.array().length}`;
+    msg += `\nemojis: ${client.emojis.array().length}`;
+    msg += `\nping: ${client.ping.toFixed(0)}ms`;
+    msg += `\nuptime: ${~~(client.uptime/1000)}s`;   // TODO fix format
 
     var embed = new Discord.RichEmbed()
         .setColor(9955331)
