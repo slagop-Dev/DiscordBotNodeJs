@@ -10,8 +10,6 @@ exports.execute = (client, message, args) => {
     });
 };
 
-// TODO fix embed + code tags for nice link
-
 exports.info = {
     name: "invite",
     alias: ["inv"],

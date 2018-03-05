@@ -1,5 +1,6 @@
 exports.execute = (client, message, args) => {
-    if(args.length < 2){
+    if(args.length < 4){
+        message.channel.send("Too few args. `.m <guild> <channel> <message>`");
         return;
     }
 
