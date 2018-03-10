@@ -33,11 +33,12 @@ exports.execute = (client, message, args) => {
         msg += "\n\nplaytime: " + ~~(result.minutesPlayed / 60) + "h";
 
         var embed = new Discord.RichEmbed()
-            .setAuthor("Stats from the last 7 days", "", url)
+            .setAuthor(result.accountName, "", url)
             .setDescription(msg)
             .setColor(9955331)
             .setURL(url)
-            .setThumbnail("https://cdn2.unrealengine.com/Fortnite%2Fhome%2Ffn_battle_logo-1159x974-8edd8b02d505b78febe3baacec47a83c2d5215ce.png");
+            .setThumbnail(result.skinUrl);
+            //https://cdn2.unrealengine.com/Fortnite%2Fhome%2Ffn_battle_logo-1159x974-8edd8b02d505b78febe3baacec47a83c2d5215ce.png
 
         message.channel.stopTyping();
         message.channel.send(embed);
