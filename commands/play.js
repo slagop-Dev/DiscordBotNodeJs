@@ -11,16 +11,17 @@ exports.execute = (client, message, args) => {
         return;
     }
 
-    if(!message.member.voiceChannel.joinable){
+    // only check for joinable if not already in voiceChannel
+    var botUserId = client.user.id;
+    if(!message.member.voiceChannel.members.get(botUserId)
+                && !message.member.voiceChannel.joinable){
         message.channel.send("<:warning:408740166715310100> Not allowed to join. Maybe full channel");
         return;
     }
 
     // search string
-    var searchString = "";
-    for(var i = 1; i < args.length; i++){
-        searchString += args[i] + " ";
-    }
+    args.shift();
+    var searchString = args.join(" ");
 
     ap.queueSong(message, searchString);
 };

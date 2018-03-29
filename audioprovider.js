@@ -1,6 +1,7 @@
 const YTDL = require('ytdl-core');
 const YTF = require('youtube-finder');
 const main = require('./bot.js');
+const Discord = require('discord.js');
 
 // all servers with their play queues and audio providers
 var guilds = {};
@@ -43,7 +44,14 @@ exports.queueSong = (message, searchString) => {
                 title: vidId
             };
             if(!err) song.title = info.title;
-            message.channel.send("<:musical_note:408759580080865280> Queued song: **" + song.title + "**");
+
+            var ytVidUrl = "https://www.youtube.com/watch?v=" + song.id;
+
+            var embed = new Discord.RichEmbed()
+                .setColor(9955331)
+                .setDescription("<:musical_note:408759580080865280> Queued song: [" + song.title + "](" + ytVidUrl + ")");
+
+            message.channel.send(embed);
 
             g.playQueue.push(song);
             console.log("--> Queued song: " + song.title + " (" + vidId + ")");
