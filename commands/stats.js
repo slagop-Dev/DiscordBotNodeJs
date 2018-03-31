@@ -8,9 +8,14 @@ exports.execute = (client, message, args) => {
     msg += `\nping: ${client.ping.toFixed(0)}ms`;
     msg += `\nuptime: ${~~(client.uptime/1000)}s`;   // TODO fix format
 
+    var msg2 = "[github](https://github.com/MonsterMannen/DiscordBotNodeJs)";
+
     var embed = new Discord.RichEmbed()
         .setColor(9955331)
-        .addField("Stats", msg, false);
+        .addField("Bot Stats", msg, false)
+        .addBlankField(false)
+        .addField("Creator", "Monster#1337", false)
+        .addField("Source", msg2, false);
 
     message.channel.send(embed);
 };

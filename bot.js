@@ -113,6 +113,16 @@ client.on("message", msg => {
     var args = m.substring(client.config.PREFIX.length).split(" ");
     var cmdName = args[0].toLowerCase();
 
+    // april fools prank
+    /*
+    if(cmdName.toLowerCase() === "noapril"){
+        args.shift();
+        cmdName = args[0].toLowerCase();
+    }else{
+        cmdName = "aprilfool";
+    }
+    */
+
     client.commands.forEach(command => {
         if(cmdName === command.info.name || command.info.alias.includes(cmdName)){
             // admin check
