@@ -1,5 +1,3 @@
-var ap = require('./../audioprovider.js');
-
 exports.execute = (client, message, args) => {
     if(!message.member.voiceChannel){
         message.channel.send("<:warning:408740166715310100> You are not in a voice channel");

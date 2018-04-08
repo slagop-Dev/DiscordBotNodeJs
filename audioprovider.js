@@ -49,7 +49,6 @@ exports.queueSong = (message, searchString) => {
             let ytVidUrl = "https://www.youtube.com/watch?v=" + song.id;
             let min = ~~(song.length / 60);
             let sec = ('0' + ~~(song.length % 60)).slice(0, 2);
-            let qSong = "";
             let vidL = "`" + min + ":" + sec + "`";
 
             var embed = new Discord.RichEmbed()
@@ -120,3 +119,13 @@ exports.stopSong = (guildId) => {
     g.playQueue = [];
     if(g.dispatcher) g.dispatcher.end();
 };
+
+exports.playQueue = (guildId, channel) => {
+    if(!guilds[guildId]) return;
+    var g = guilds[guildId];
+    var q = "";
+    g.playQueue.forEach((song) => {
+        q += song.title + "\n";
+    });
+    channel.send(q);
+}
