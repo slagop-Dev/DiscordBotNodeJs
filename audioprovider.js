@@ -16,7 +16,8 @@ exports.queueSong = (message, searchString) => {
 
     // create guild object if it doesnt exist
     if(!guilds[guildId]) guilds[guildId] = {
-        playQueue: []
+        playQueue: [],
+        nowPlaying: null
     };
 
     // get guild object
@@ -77,6 +78,7 @@ function playSong(connection, guildId){
     g.dispatcher = connection.playStream(YTDL(g.playQueue[0].id, {filter: "audioonly"}));
     console.log("--> Started playing song: " + g.playQueue[0].title
                                         + " (" + g.playQueue[0].id + ")");
+    g.nowPlaying = g.playQueue[0];
     g.playQueue.shift();
 
     g.dispatcher.on("end", end => {
@@ -124,8 +126,22 @@ exports.playQueue = (guildId, channel) => {
     if(!guilds[guildId]) return;
     var g = guilds[guildId];
     var q = "";
+    var i = 1;
+    let ytBaseUrl = "https://www.youtube.com/watch?v=";
     g.playQueue.forEach((song) => {
-        q += song.title + "\n";
+        let ytLink = ytBaseUrl + song.id;
+        q += "`" + i++ + "`. ";
+        q += `[${song.title}](${ytLink}) | `;
+        q += "`" + song.length + "`\n";
     });
-    channel.send(q);
+
+    var currSong = `[${g.nowPlaying.title}](${ytBaseUrl+g.nowPlaying.id}) | `;
+    currSong += "`" + g.nowPlaying.length + "`";
+
+    var embed = new Discord.RichEmbed()
+        .setColor(9955331)
+        .addField("<:musical_note:408759580080865280> Now Playing", currSong)
+        .addField("<:notes:433601162827137026> Play Queue", q);
+
+    channel.send(embed);
 }
