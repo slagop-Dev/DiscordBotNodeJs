@@ -30,7 +30,7 @@ exports.execute = (client, message, args) => {
         });
         res.on('end', end => {
             body = JSON.parse(body);
-            //console.log(body);    // debug
+            console.log(body);    // debug
 
             // player not found
             if(body.error){
@@ -45,7 +45,7 @@ exports.execute = (client, message, args) => {
             var score = body.lifeTimeStats[6]["value"];
             var matchesPlayed = body.lifeTimeStats[7]["value"];
             var wins = body.lifeTimeStats[8]["value"];
-            var timePlayed = body.lifeTimeStats[13]["value"];
+            //var timePlayed = body.lifeTimeStats[13]["value"]; // removed from API?
             var wr = body.lifeTimeStats[9]["value"];
             var kills = body.lifeTimeStats[10]["value"];
             var kd = body.lifeTimeStats[11]["value"];
@@ -59,7 +59,7 @@ exports.execute = (client, message, args) => {
             msg += "\nwinrate: " + wr;
             msg += "\n\nkills: " + kills /* + " (" + killsPerMin + "/min)"*/ ;
             msg += "\nkd: " + kd;
-            msg += "\n\nplaytime: " + timePlayed;
+            msg += "\n\nplaytime: " + 0;
 
             var embed = new Discord.RichEmbed()
                 .setAuthor(epicName, "", url)
