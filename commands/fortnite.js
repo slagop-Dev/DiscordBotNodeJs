@@ -49,7 +49,7 @@ exports.execute = (client, message, args) => {
             var wr = body.lifeTimeStats[9]["value"];
             var kills = body.lifeTimeStats[10]["value"];
             var kd = body.lifeTimeStats[11]["value"];
-            var killsPerMin = body.lifeTimeStats[12]["value"];
+            //var killsPerMin = body.lifeTimeStats[12]["value"];
             var url = "https://fortnitetracker.com/profile/pc/"
                                     + encodeURIComponent(name);
 
