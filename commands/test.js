@@ -10,5 +10,7 @@ exports.info = {
     name: "test",
     alias: ["test1", "test2", "test3"],
     permission: "default",
-    type: "general"
+    type: "general",
+    guildOnly: false,
+	help: "dev test command for testing stuff :^)"
 };

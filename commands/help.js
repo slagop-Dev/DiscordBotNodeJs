@@ -1,6 +1,7 @@
 exports.execute = (client, message, args) => {
     const emoji = client.emojis.find("name", "kappa");
-    message.channel.send(`You have been helped ${emoji}`)
+    var msg = `You have been helped ${emoji}`;
+    message.channel.send(msg + " (pssst, check `.commands`)")
         .catch(console.error);
 };
 
@@ -11,5 +12,7 @@ exports.info = {
     name: "help",
     alias: [],
     permission: "default",
-    type: "general"
+    type: "general",
+    guildOnly: false,
+	help: "Print help message"
 };

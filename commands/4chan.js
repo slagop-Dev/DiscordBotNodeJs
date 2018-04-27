@@ -74,5 +74,7 @@ exports.info = {
     name: "4chan",
     alias: ["4ch", "4c", "4"],
     permission: "default",
-    type: "general"
+    type: "general",
+	guildOnly: false,
+	help: "Shows a random image (and text) from the specified board. ex: `.4chan wg`"
 };

@@ -32,5 +32,7 @@ exports.info = {
     name: "russianroulette",
     alias: ["rr", "russian", "roulette"],
     permission: "default",
-    type: "fun"
+    type: "fun",
+    guildOnly: false,
+	help: "Simulate a russian roulette game so you don't die IRL by mistake."
 };

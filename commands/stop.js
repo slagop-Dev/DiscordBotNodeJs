@@ -8,5 +8,7 @@ exports.info = {
     name: "stop",
     alias: [],
     permission: "default",
-    type: "music"
+    type: "music",
+    guildOnly: true,
+	help: "Stop playing music"
 };

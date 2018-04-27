@@ -49,5 +49,7 @@ exports.info = {
     name: "f7",
     alias: ["fortnite7"],
     permission: "default",
-    type: "general"
+    type: "general",
+	guildOnly: false,
+	help: "Shows fortnite stats from the last 7 days for the specified user. ex: `.f7 MonsterMannen`"
 };

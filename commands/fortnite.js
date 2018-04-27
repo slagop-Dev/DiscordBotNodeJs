@@ -84,5 +84,7 @@ exports.info = {
     name: "fortnite",
     alias: ["fn", "f"],
     permission: "default",
-    type: "general"
+    type: "general",
+    guildOnly: false,
+	help: "Show lifetime Fortnite stats. ex: `.f MonsterMannen`"
 };

@@ -8,5 +8,7 @@ exports.info = {
     name: "resume",
     alias: [],
     permission: "default",
-    type: "music"
+    type: "music",
+    guildOnly: true,
+	help: "Resume playing a paused song"
 };

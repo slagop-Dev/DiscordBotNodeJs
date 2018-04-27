@@ -33,5 +33,7 @@ exports.info = {
     name: "come",
     alias: ["join", "summon"],
     permission: "default",
-    type: "music"
+    type: "music",
+    guildOnly: true,
+	help: "Make me join your voice channel"
 };

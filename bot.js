@@ -115,6 +115,12 @@ client.on("message", msg => {
     
     client.commands.forEach(command => {
         if(cmdName === command.info.name || command.info.alias.includes(cmdName)){
+            // guild or private chat check
+            if(command.info.guildOnly && msg.channel.guild == undefined){
+                msg.channel.send("This command unavailable in private chat :^(");
+                return;
+            }
+
             // admin check
             if(command.info.permission == "admin"
                     && msg.author.id != client.config.OWNER_ID){

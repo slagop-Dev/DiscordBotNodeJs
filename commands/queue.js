@@ -8,5 +8,7 @@ exports.info = {
     name: "queue",
     alias: ["playqueue", "q"],
     permission: "default",
-    type: "music"
+    type: "music",
+	guildOnly: true,
+	help: "Display current Play Queue"
 };

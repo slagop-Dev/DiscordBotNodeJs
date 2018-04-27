@@ -10,5 +10,7 @@ exports.info = {
     name: "aprilfool",
     alias: ["april", "fool", "aprilfools"],
     permission: "default",
-    type: "hidden"
+    type: "hidden",
+    guildOnly: false,
+	help: "This was used as april fools 2018. Very funny haHAA."
 };

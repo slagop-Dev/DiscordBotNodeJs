@@ -71,5 +71,7 @@ exports.info = {
     name: "message",
     alias: ["sendMessage", "msg", "m"],
     permission: "admin",
-    type: "hidden"
+    type: "hidden",
+	guildOnly: false,
+	help: "send a message. ex: `.msg guildName channelName messageHere`"
 };

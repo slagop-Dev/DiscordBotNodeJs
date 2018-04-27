@@ -14,5 +14,7 @@ exports.info = {
     name: "invite",
     alias: ["inv"],
     permission: "default",
-    type: "general"
+    type: "general",
+    guildOnly: false,
+	help: "Get invite link to invite me to your guild(server)"
 };

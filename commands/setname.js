@@ -16,5 +16,7 @@ exports.info = {
     name: "setname",
     alias: ["setusername", "setbotusername", "setbotname"],
     permission: "admin",
-    type: "admin"
+    type: "admin",
+    guildOnly: false,
+	help: "Set bot name. ex: `.setname Botticus Newius namius`."
 };

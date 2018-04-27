@@ -30,5 +30,9 @@ exports.info = {
     name: "play",
     alias: [],
     permission: "default",
-    type: "music"
+    type: "music",
+    guildOnly: true,
+    help: "Play a song from youtube. Use either the song name, a youtube URL or a video ID."
+    + "\n\nex: `.play Eminem Monster` or `.play https://youtu.be/EHkozMIXZ8w` or `.play EHkozMIXZ8w`." 
+    + "\n\nUsing this command while a song is already playing will put the next song in the play queue."
 };

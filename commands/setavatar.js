@@ -12,5 +12,7 @@ exports.info = {
     name: "setavatar",
     alias: ["setbotavatar"],
     permission: "admin",
-    type: "admin"
+    type: "admin",
+    guildOnly: false,
+	help: "Set bot avatar. ex: `.setavatar ImgURL`."
 };

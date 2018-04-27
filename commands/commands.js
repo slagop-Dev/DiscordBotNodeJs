@@ -42,5 +42,7 @@ exports.info = {
     name: "commands",
     alias: ["cmds", "cmd", "c"],
     permission: "default",
-    type: "general"
+    type: "general",
+    guildOnly: false,
+	help: "Print all commands"
 };

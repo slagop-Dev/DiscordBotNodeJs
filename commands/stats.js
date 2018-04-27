@@ -24,5 +24,7 @@ exports.info = {
     name: "stats",
     alias: ["status", "info"],
     permission: "default",
-    type: "general"
+    type: "general",
+    guildOnly: false,
+	help: "Print bot stats."
 };

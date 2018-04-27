@@ -17,5 +17,7 @@ exports.info = {
     name: "setgame",
     alias: ["setbotgame", "setstatus"],
     permission: "admin",
-    type: "admin"
+    type: "admin",
+	guildOnly: false,
+	help: "set my game. ex: `.setgame Fortnite`"
 };

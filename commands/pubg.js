@@ -7,5 +7,7 @@ exports.info = {
     name: "pubg",
     alias: [],
     permission: "default",
-    type: "fun"
+    type: "fun",
+    guildOnly: false,
+    help: "Just a command to trash-talk pubg xD"
 };

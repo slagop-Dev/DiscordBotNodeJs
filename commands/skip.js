@@ -8,5 +8,7 @@ exports.info = {
     name: "skip",
     alias: [],
     permission: "default",
-    type: "music"
+    type: "music",
+    guildOnly: true,
+	help: "Skip to the next song in the play queue"
 };
