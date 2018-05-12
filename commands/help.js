@@ -1,7 +1,7 @@
 exports.execute = (client, message, args) => {
     const emoji = client.emojis.find("name", "kappa");
     var msg = `You have been helped ${emoji}`;
-    message.channel.send(msg + " (pssst, check `.commands`)")
+    message.channel.send(msg + "\n(check `.commands`)")
         .catch(console.error);
 };
 
