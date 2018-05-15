@@ -12,11 +12,11 @@
   "dependencies": {
     "discord.js": "^11.3.2",
     "dotenv": "^5.0.1",
-    "fortnitetracker-7days-stats": "^2.2.2",
+    "fortnitetracker-7days-stats": "^3.0.0",
     "node-opus": "^0.2.9",
     "npm": "^5.10.0",
-    "request": "^2.85.0",
+    "request": "^2.86.0",
     "youtube-finder": "^1.0.1",
-    "ytdl-core": "^0.20.3"
+    "ytdl-core": "^0.20.4"
   }
 }
