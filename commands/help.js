@@ -2,11 +2,10 @@ const main = require('./bot.js');
 
 exports.execute = (client, message, args) => {
     if(args.length == 1){
-
-    const emoji = client.emojis.find("name", "kappa");
-    var msg = `You have been helped ${emoji}`;
-    message.channel.send(msg + "\n(check `.commands`)")
-        .catch(console.error);
+        const emoji = client.emojis.find("name", "kappa");
+        var msg = `You have been helped ${emoji}`;
+        message.channel.send(msg + "\n(check `.commands`)")
+            .catch(console.error);
     }else{
         var cmdName = args[1];
         main.commands().forEach(command => {
@@ -27,5 +26,5 @@ exports.info = {
     permission: "default",
     type: "general",
     guildOnly: false,
-	help: "Print help message"
+    help: "Print help message"
 };
