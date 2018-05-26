@@ -23,6 +23,11 @@ exports.config = () => {
     return client.config;
 }
 
+// let other files access commands
+exports.commands = () => {
+    return client.commands;
+}
+
 // add all commands
 client.commands = [];
 fs.readdir("./commands/", function(err, files){
@@ -112,7 +117,7 @@ client.on("message", msg => {
     if(!m.startsWith(client.config.PREFIX)) return;
     var args = m.substring(client.config.PREFIX.length).split(" ");
     var cmdName = args[0].toLowerCase();
-    
+
     client.commands.forEach(command => {
         if(cmdName === command.info.name || command.info.alias.includes(cmdName)){
             // guild or private chat check
