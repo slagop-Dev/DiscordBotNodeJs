@@ -1,4 +1,5 @@
-const main = require('./bot.js');
+const main = require('../bot.js');
+const Discord = require('discord.js');
 
 exports.execute = (client, message, args) => {
     if(args.length == 1){
@@ -10,10 +11,14 @@ exports.execute = (client, message, args) => {
         var cmdName = args[1];
         main.commands().forEach(command => {
             if(cmdName === command.info.name || command.info.alias.includes(cmdName)){
-                message.channel.send(`**$(command.info.name)** help: \n$(command.info.help)`);
+                var embed = new Discord.RichEmbed()
+                    .setColor(9955331)
+                    .setTitle(`${command.info.name}`)
+                    .setDescription(`${command.info.help}`);
+                message.channel.send(embed);
                 return;
             }
-        }
+        });
     }
 };
 
