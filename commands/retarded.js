@@ -26,6 +26,7 @@ exports.execute = (client, message, args) => {
             message.channel.stopTyping();
         });
     });
+};
 
 exports.info = {
     name: "retarded",
