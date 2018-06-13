@@ -40,21 +40,24 @@ exports.queueSong = (message, searchString) => {
 
         // get info about video
         YTDL.getInfo(vidId, (err, info) => {
+            // parse time to minutes:seconds
+            let min = ~~(info.length_seconds / 60);
+            let sec = ('0' + ~~(info.length_seconds % 60)).slice(0, 2);
+            let vidL = min + ":" + sec;
+
             var song = {
                 id: vidId,
                 title: vidId,
-                length: info.length_seconds
+                length: vidL
             };
             if(!err) song.title = info.title;
 
             let ytVidUrl = "https://www.youtube.com/watch?v=" + song.id;
-            let min = ~~(song.length / 60);
-            let sec = ('0' + ~~(song.length % 60)).slice(0, 2);
-            let vidL = "`" + min + ":" + sec + "`";
+            let vidLcodeTags = "`" + song.length + "`";
 
             var embed = new Discord.RichEmbed()
                 .setColor(9955331)
-                .setDescription(`<:musical_note:408759580080865280> **Queued song:** [${song.title}](${ytVidUrl}) | ${vidL}`);
+                .setDescription(`<:musical_note:408759580080865280> **Queued song:** [${song.title}](${ytVidUrl}) | ${vidLcodeTags}`);
 
             message.channel.send(embed);
 
