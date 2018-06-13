@@ -83,6 +83,7 @@ function playSong(connection, guildId){
 
     g.dispatcher.on("end", end => {
         console.log("--> Song ended");
+        g.nowPlaying = null;
         if(g.playQueue[0]){
             // play next song if there are more in the Q
             playSong(connection, guildId);
@@ -123,7 +124,15 @@ exports.stopSong = (guildId) => {
 };
 
 exports.playQueue = (guildId, channel) => {
-    if(!guilds[guildId]) return;
+    // check if something is playing
+    if(!guilds[guildId] || !guilds[guildId].nowPlaying){
+        var embed = new Discord.RichEmbed()
+            .setColor(9955331)
+            .setDescription("<:mute:456503709443293186> Not Playing");
+        channel.send(embed);
+        return;
+    }
+
     var g = guilds[guildId];
     var q = "";
     var i = 1;
@@ -140,8 +149,8 @@ exports.playQueue = (guildId, channel) => {
 
     var embed = new Discord.RichEmbed()
         .setColor(9955331)
-        .addField("<:musical_note:408759580080865280> Now Playing", currSong)
-        .addField("<:notes:433601162827137026> Play Queue", q);
+        .addField("<:musical_note:408759580080865280> Now Playing", currSong);
+        if(q != "") embed.addField("<:notes:433601162827137026> Play Queue", q);
 
     channel.send(embed);
 }
