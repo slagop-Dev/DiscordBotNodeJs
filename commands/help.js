@@ -4,9 +4,15 @@ const Discord = require('discord.js');
 exports.execute = (client, message, args) => {
     if(args.length == 1){
         const emoji = client.emojis.find("name", "kappa");
-        var msg = `You have been helped ${emoji}`;
-        message.channel.send(msg + "\n(check `.commands`)")
-            .catch(console.error);
+        var title = `You have been helped ${emoji}`;
+        var msg = "List all commands: `.commands`\n";
+        msg += "Info about a command: `.help <command>`";
+
+        var embed = new Discord.RichEmbed()
+            .setColor(9955331)
+            .setTitle(title)
+            .setDescription(msg);
+        message.channel.send(embed);
     }else{
         var cmdName = args[1];
         main.commands().forEach(command => {
@@ -19,11 +25,10 @@ exports.execute = (client, message, args) => {
                 return;
             }
         });
+        // if cmdName doesn't match any command
+        message.react("❓");
     }
 };
-
-// TODO use embed for help message?
-// TODO add .help cmd
 
 exports.info = {
     name: "help",
