@@ -26,7 +26,7 @@ exports.execute = (client, message, args) => {
             }
         });
         // if cmdName doesn't match any command
-        message.react("❓");
+        //message.react("❓");   // needs to wait for forEach to finish
     }
 };
 

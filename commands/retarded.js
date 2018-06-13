@@ -2,7 +2,7 @@ const Jimp = require('jimp');
 
 exports.execute = (client, message, args) => {
     message.channel.startTyping();
-    var imgPath = "dog_template.png";
+    var imgPath = "images/dog_template.png";
     var img;
     var text = "hello there :^D";
 
@@ -16,11 +16,11 @@ exports.execute = (client, message, args) => {
         img = image;
         return Jimp.loadFont(Jimp.FONT_SANS_32_BLACK);
     }).then((font) => {
-        img.print(font, 350, 25, text, 280).write("img01.png", () => {
+        img.print(font, 350, 25, text, 280).write("images/img01.png", () => {
             message.channel.send({
                 files: [{
-                    attachment: "img01.png",
-                    name: "retard_dog.png"
+                    attachment: "images/img01.png",
+                    name: "images/retard_dog.png"
                 }]
             });
             message.channel.stopTyping();
