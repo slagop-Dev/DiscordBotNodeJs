@@ -4,8 +4,9 @@ exports.execute = (client, message, args) => {
     var msg = `commands: ${client.commands.length}`;
     msg += `\nguilds: ${client.guilds.array().length}`;
     msg += `\nchannels: ${client.channels.array().length}`;
+    msg += `\nusers: ${client.users.array().length}`;
     msg += `\nemojis: ${client.emojis.array().length}`;
-    msg += `\nping: ${client.ping.toFixed(0)}ms`;
+    msg += `\n\nping: ${client.ping.toFixed(0)}ms`;
     msg += `\nuptime: ${~~(client.uptime/1000)}s`;   // TODO fix format
 
     var msg2 = "[github](https://github.com/MonsterMannen/DiscordBotNodeJs)";
