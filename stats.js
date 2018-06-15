@@ -1,4 +1,4 @@
-{
+var stats = {
     "guilds": 8,
     "channels": 102,
     "users": 430,
