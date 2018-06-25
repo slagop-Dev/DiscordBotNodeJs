@@ -121,7 +121,7 @@ client.on("message", msg => {
     client.commands.forEach(command => {
         if(cmdName === command.info.name || command.info.alias.includes(cmdName)){
             // guild or private chat check
-            if(command.info.guildOnly && msg.channel.guild == undefined){
+            if(command.info.guildOnly && msg.channel.type === 'dm'){
                 msg.channel.send("This command unavailable in private chat :^(");
                 return;
             }
