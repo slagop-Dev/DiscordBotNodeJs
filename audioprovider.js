@@ -17,7 +17,8 @@ exports.queueSong = (message, searchString) => {
     // create guild object if it doesnt exist
     if(!guilds[guildId]) guilds[guildId] = {
         playQueue: [],
-        nowPlaying: null
+        nowPlaying: null,
+        loop: false
     };
 
     // get guild object
@@ -86,6 +87,10 @@ function playSong(connection, guildId){
 
     g.dispatcher.on("end", end => {
         console.log("--> Song ended");
+
+        if(g.loop){
+            g.playQueue.push(g.nowPlaying);
+        }
         g.nowPlaying = null;
         if(g.playQueue[0]){
             // play next song if there are more in the Q
@@ -122,6 +127,7 @@ exports.stopSong = (guildId) => {
     if(!guilds[guildId]) return;
     var g = guilds[guildId];
     // remove rest of songs or dispatcher onEnd will keep looping
+    g.loop = false;
     g.playQueue = [];
     if(g.dispatcher) g.dispatcher.end();
 };
@@ -142,18 +148,35 @@ exports.playQueue = (guildId, channel) => {
     let ytBaseUrl = "https://www.youtube.com/watch?v=";
     g.playQueue.forEach((song) => {
         let ytLink = ytBaseUrl + song.id;
+        let title = song.title;
+        if(title.length > 60) title = title.substring(0, 55) + "... ";
         q += "`" + i++ + "`. ";
-        q += `[${song.title}](${ytLink}) | `;
+        q += `[${title}](${ytLink}) | `;
         q += "`" + song.length + "`\n";
     });
 
-    var currSong = `[${g.nowPlaying.title}](${ytBaseUrl+g.nowPlaying.id}) | `;
-    currSong += "`" + g.nowPlaying.length + "`";
+    let currSong = g.nowPlaying.title;
+    if(currSong.length > 60) currSong = currSong.substring(0, 55) + "... ";
+    var cs = `[${currSong}](${ytBaseUrl+g.nowPlaying.id}) | `;
+    cs += "`" + g.nowPlaying.length + "`";
 
     var embed = new Discord.RichEmbed()
         .setColor(9955331)
-        .addField("<:musical_note:408759580080865280> Now Playing", currSong);
+        .addField("<:musical_note:408759580080865280> Now Playing", cs);
+        if(g.loop)  embed.setFooter("🔁 Looping playlist");
         if(q != "") embed.addField("<:notes:433601162827137026> Play Queue", q);
 
     channel.send(embed);
 }
+
+exports.toggleLoop = (guildId, channel) => {
+    if(!guilds[guildId]) return;
+    var g = guilds[guildId];
+    g.loop = !(g.loop);
+    console.log("set looping to: " + g.loop);
+    if(g.loop){
+        channel.send("<:musical_note:408759580080865280> Looping playlist");
+    }else{
+        channel.send("<:musical_note:408759580080865280> Turned off looping")
+    }
+};

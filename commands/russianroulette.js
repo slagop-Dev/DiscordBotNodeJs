@@ -1,5 +1,5 @@
 exports.execute = (client, message, args) => {
-    var v = ~~(Math.random() * 6);  // 0 to 5
+    var v = ~~(Math.random() * 3);  // 0 to 2
     console.log("--> Rolled " + v + " in russian roulette");
     var deathText = "<:dizzy_face:418874338138128395>    <:boom:418874561006927881> <:gun:418869220932190228> UNLUCKY";
     var aliveText = "<:sweat_smile:418874817719304215>           <:gun:418869220932190228> LUCKY";
