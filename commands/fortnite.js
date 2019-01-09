@@ -2,10 +2,8 @@ const https = require('https');
 const Discord = require('discord.js');
 
 exports.execute = (client, message, args) => {
-    var name = "";
-    for(var i = 1; i < args.length; i++){
-        name += args[i] + " ";
-    }
+    args.shift();	// remove command name
+	var name = args.join(" ");
     name = name.trim(); // remove last space
 
     if(name === "" || name.indexOf(":") > -1 || !isValid(name)){

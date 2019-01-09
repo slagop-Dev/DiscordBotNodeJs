@@ -7,8 +7,8 @@ exports.execute = (client, message, args) => {
         return;
     }
 
-    var name = args.join(" ");
-	name.shift();		// remove arg0, the command name
+	args.shift();		// remove arg0, the command name
+	var name = args.join(" ");
     name = name.trim(); // remove last space
 
     var url = "https://fortnitetracker.com/profile/pc/"
