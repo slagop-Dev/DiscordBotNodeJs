@@ -13,10 +13,7 @@ exports.execute = (client, message, args) => {
     // print all boards
     if(args.length == 2){
         if(args[1] === "boards"){
-            var msg = "";
-            for(var i = 0; i < boards.length; i++){
-                msg += boards[i] + ", ";
-            }
+            var msg = boards.join(", ");
             msg = msg.substring(0, msg.length - 2); // remove ", " at end
             message.channel.send("```" + msg + "```");
             return;
