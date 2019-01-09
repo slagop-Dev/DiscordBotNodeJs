@@ -59,7 +59,7 @@ exports.execute = (client, message, args) => {
             msg += "\nwinrate: " + wr;
             msg += "\n\nkills: " + kills /* + " (" + killsPerMin + "/min)"*/ ;
             msg += "\nkd: " + kd;
-            msg += "\n\nplaytime: " + 0;
+            //msg += "\n\nplaytime: " + 0h;		// disabled for a long time
 
             var embed = new Discord.RichEmbed()
                 .setAuthor(epicName, "", url)

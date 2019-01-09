@@ -14,7 +14,6 @@ exports.execute = (client, message, args) => {
     if(args.length == 2){
         if(args[1] === "boards"){
             var msg = boards.join(", ");
-            msg = msg.substring(0, msg.length - 2); // remove ", " at end
             message.channel.send("```" + msg + "```");
             return;
         }
