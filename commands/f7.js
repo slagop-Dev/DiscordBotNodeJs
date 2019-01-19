@@ -7,10 +7,8 @@ exports.execute = (client, message, args) => {
         return;
     }
 
-    var name = "";
-    for(var i = 1; i < args.length; i++){
-        name += args[i] + " ";
-    }
+	args.shift();		// remove arg0, the command name
+	var name = args.join(" ");
     name = name.trim(); // remove last space
 
     var url = "https://fortnitetracker.com/profile/pc/"
@@ -30,7 +28,7 @@ exports.execute = (client, message, args) => {
         msg += "\nwinrate: " + ~~result.wr + "%";   // ~~ = absolute value
         msg += "\n\nkills: " + result.kills;
         msg += "\nkd: " + result.kd;
-        msg += "\n\nplaytime: " + ~~(result.minutesPlayed / 60) + "h";
+        //msg += "\n\nplaytime: " + ~~(result.minutesPlayed / 60) + "h";	// disabled
 
         var embed = new Discord.RichEmbed()
             .setAuthor(result.accountName, "", url)
