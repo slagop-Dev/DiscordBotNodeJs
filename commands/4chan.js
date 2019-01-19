@@ -1,12 +1,18 @@
 const https = require('https');
 
 exports.execute = (client, message, args) => {
+
+    if(!message.channel.nsfw){
+        message.channel.send("<:warning:536317888253001738> This command can only be used in NSFW channels.");
+        return;
+    }
+
     const boards = [
         "a", "b", "c", "d", "e", "f", "g", "gif", "h", "hr", "k", "m", "o", "p", "r", "s", "t", "u", "v", "vg", "vr", "w", "wg", "i", "ic", "r9k", "s4s", "vip", "qa", "cm", "hm", "lgbt", "y", "3", "aco", "adv", "an", "asp", "bant", "biz", "cgl", "ck", "co", "diy", "fa", "fit", "gd", "hc", "his", "int", "jp", "lit", "mlp", "mu", "n", "news", "out", "po", "pol", "qst", "sci", "soc", "sp", "tg", "toy", "trv", "tv", "vp", "wsg", "wsr"
     ];
 
     if(args.length < 2){
-        message.channel.send("No board specified");
+        message.channel.send("No board specified.\n`.4chan boards` to show all.");
         return;
     }
 
