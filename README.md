@@ -7,6 +7,8 @@ Can play music from youtube
 
 Heroku 24/7 host
 
+![img](https://i.imgur.com/lzd9ZKW.gif)
+
 ![good bot](http://puu.sh/yYCnN/889eb951ec.png)
 
 ![good bot2](https://i.imgur.com/ZCsODnt.png)  
