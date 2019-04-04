@@ -4,13 +4,16 @@ exports.execute = (client, message, args) => {
     message.channel.startTyping();
     var imgPath = "images/dog_template.png";
     var img;
-    var text = "hello there :^D";
+    var text = "no text";
 
-    // TODO remove default message
-    if(args.length > 1){
-        args.shift();
-        text = args.join(" ");
+    if(args.length < 2){
+        message.channel.send(":warning: No argument provided. \nex: `.retarded I like pubg`");
+        message.channel.stopTyping();
+        return;
     }
+
+    args.shift();
+    text = args.join(" ");
 
     Jimp.read(imgPath).then((image) => {
         img = image;
@@ -30,7 +33,7 @@ exports.execute = (client, message, args) => {
 
 exports.info = {
     name: "retarded",
-    alias: ["r", "retard"],
+    alias: ["r", "retard", "dog"],
     permission: "default",
     type: "fun",
     guildOnly: false,
