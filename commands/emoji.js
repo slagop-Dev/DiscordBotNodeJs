@@ -59,7 +59,7 @@ exports.execute = (client, message, args) => {
     }
     var transColors = [];
 
-    var imgName = "__dirname/../images/emoji.png";
+    var imgName = "images/emoji.png";
 
     Jimp.read(url, (err, img) => {
         if(err) throw err;
