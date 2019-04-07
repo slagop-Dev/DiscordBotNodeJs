@@ -9,8 +9,6 @@ Heroku 24/7 host
 
 ![img](https://i.imgur.com/lzd9ZKW.gif)
 
-![good bot](http://puu.sh/yYCnN/889eb951ec.png)
-
 ![good bot2](https://i.imgur.com/ZCsODnt.png)  
 (playtime shows as 0h because Epic Games temporarily(7 months temp, probably gone forever) disabled the stat)
 
