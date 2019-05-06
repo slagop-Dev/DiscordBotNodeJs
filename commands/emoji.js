@@ -1,5 +1,6 @@
 const Jimp = require('jimp');
 const diff = require('color-diff');
+const twemoji = require('twemoji');
 
 emojiRgb = [
     {R: 255, G: 255, B: 255, E: ":white_large_square:"},    // white
@@ -35,8 +36,16 @@ exports.execute = (client, message, args) => {
         if(args[1].endsWith(".png") || args[1].endsWith(".jpg")){
             url = args[1];
         }else{
-            message.channel.send("can only use emojis from this guild or image urls .png/.jpg");
-            return;
+            // try use twemoji if it's a default emoji
+            var text = twemoji.parse(args[1]);
+            if(!text.startsWith("<img")){
+                message.channel.send("Error. Only works with custom emojis from this guild / default emojis / png or jpg urls.");
+                return;
+            }
+            var pos = text.indexOf("src");
+            text = text.substring(pos + 5);
+            text = text.substring(0, text.length - 3);
+            url = text;
         }
     }
 
@@ -62,7 +71,10 @@ exports.execute = (client, message, args) => {
     var imgName = "images/emoji.png";
 
     Jimp.read(url, (err, img) => {
-        if(err) throw err;
+        if(err){
+            message.channel.send("Error. Could not read image.");
+            return;
+        }
         img
             .resize(30, 30)
             .write(imgName, () => {
