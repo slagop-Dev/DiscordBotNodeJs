@@ -2,6 +2,7 @@ const YTDL = require('ytdl-core');
 const YTF = require('youtube-finder');
 const main = require('./bot.js');
 const Discord = require('discord.js');
+const YTDLdisc = require('ytdl-core-discord');
 
 // all servers with their play queues and audio providers
 var guilds = {};
@@ -33,6 +34,8 @@ exports.queueSong = (message, searchString) => {
     }
     ytclient.search(params, function(err, data) {
         //console.log("STRING:" + searchString + "\n---\n" + data);
+        //console.log(data.items[0]);
+
         if(data.items.length == 0){
             message.channel.send("<:warning:408740166715310100> No song found");
             return;
@@ -42,8 +45,8 @@ exports.queueSong = (message, searchString) => {
         // get info about video
         YTDL.getInfo(vidId, (err, info) => {
             // parse time to minutes:seconds
-            let min = ~~(info.length_seconds / 60);
-            let sec = ('0' + ~~(info.length_seconds % 60)).slice(0, 2);
+            let min = ~~(info.player_response.videoDetails.lengthSeconds / 60);
+            let sec = ('0' + ~~(info.player_response.videoDetails.lengthSeconds % 60)).slice(0, 2);
             let vidL = min + ":" + sec;
 
             var song = {
@@ -51,7 +54,7 @@ exports.queueSong = (message, searchString) => {
                 title: vidId,
                 length: vidL
             };
-            if(!err) song.title = info.title;
+            if(!err) song.title = info.player_response.videoDetails.title;
 
             let ytVidUrl = "https://www.youtube.com/watch?v=" + song.id;
             let vidLcodeTags = "`" + song.length + "`";
@@ -77,9 +80,14 @@ exports.queueSong = (message, searchString) => {
     });
 };
 
-function playSong(connection, guildId){
+async function playSong(connection, guildId){
     var g = guilds[guildId];
-    g.dispatcher = connection.playStream(YTDL(g.playQueue[0].id, {filter: "audioonly"}));
+    //g.dispatcher = connection.playStream(YTDL(g.playQueue[0].id, {filter: "audioonly"}));
+
+    // switch to ytdl-core-discord
+    var url = g.playQueue[0].id;
+    g.dispatcher = connection.playOpusStream(await YTDLdisc(url));
+
     console.log("--> Started playing song: " + g.playQueue[0].title
                                         + " (" + g.playQueue[0].id + ")");
     g.nowPlaying = g.playQueue[0];
