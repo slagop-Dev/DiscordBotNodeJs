@@ -17,4 +17,4 @@ Heroku 24/7 host
 
 ---
 
-Made as a private bot but if you wanna use the code yourself you need to put in the API keys in a `.env` file (see the example) and change values in the config file.
+Made as a private bot but if you wanna use the code yourself you need to put in the API keys in a `.env` file (see the example) and change values in the config file. Also check [discord.js FAQ](https://discord.js.org/#/docs/main/stable/general/faq) on how to setup working audio.
