@@ -86,7 +86,7 @@ async function playSong(connection, guildId){
 
     // switch to ytdl-core-discord
     var url = g.playQueue[0].id;
-    g.dispatcher = connection.playOpusStream(await YTDLdisc(url));
+    g.dispatcher = connection.playOpusStream(await YTDLdisc(url, {filter: "audioonly"}));
 
     console.log("--> Started playing song: " + g.playQueue[0].title
                                         + " (" + g.playQueue[0].id + ")");
