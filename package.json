@@ -17,7 +17,7 @@
     "dotenv": "^5.0.1",
     "erlpack": "github:hammerandchisel/erlpack",
     "ffmpeg-binaries": "^4.0.0",
-    "fortnitetracker-7days-stats": "^3.2.0",
+    "fortnitetracker-7days-stats": "^3.3.1",
     "jimp": "^0.2.28",
     "libsodium-wrappers": "^0.7.5",
     "node-opus": "^0.3.2",
