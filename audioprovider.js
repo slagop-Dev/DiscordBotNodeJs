@@ -82,11 +82,13 @@ exports.queueSong = (message, searchString) => {
 
 async function playSong(connection, guildId){
     var g = guilds[guildId];
-    //g.dispatcher = connection.playStream(YTDL(g.playQueue[0].id, {filter: "audioonly"}));
 
-    // switch to ytdl-core-discord
-    var url = g.playQueue[0].id;
-    g.dispatcher = connection.playOpusStream(await YTDLdisc(url, {filter: "audioonly"}));
+    // for some reason this works again
+    g.dispatcher = connection.playStream(YTDL(g.playQueue[0].id, {filter: "audioonly"}));
+
+    // ...and this doesnt work xD
+    //var url = g.playQueue[0].id;
+    //g.dispatcher = connection.playOpusStream(await YTDLdisc(url, {filter: "audioonly"}));
 
     console.log("--> Started playing song: " + g.playQueue[0].title
                                         + " (" + g.playQueue[0].id + ")");
