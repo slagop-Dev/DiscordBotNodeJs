@@ -13,7 +13,7 @@ emojiRgb = [
     {R: 102, G: 117, B: 127, E: ":new_moon:"},              // gray
     {R: 146, G: 102, B: 204, E: ":star_of_david:"},         // purple
     {R: 89, G: 142, B: 60, E: ":green_apple:"},             // pepe green
-    {R: 92, G: 172, B: 235, E: ":large_blue_circle:"}       // joy emoji tears blue
+    {R: 92, G: 172, B: 235, E: ":blue_circle:"}             // joy emoji tears blue
     //{R: 255, G: 255, B: 255, E: ""},
     //{R: 255, G: 255, B: 255, E: ""},
     //{R: 255, G: 255, B: 255, E: ""},
